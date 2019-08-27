@@ -100,7 +100,10 @@ class Game extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+      status =
+        current.squares.indexOf(null) > -1
+          ? 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+          : '当前平局哟'
     }
     return (
       <div className="game">
