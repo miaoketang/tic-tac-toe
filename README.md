@@ -11,10 +11,10 @@
 * 每当有人获胜时，高亮显示连成一线的 3 颗棋子。
 * 当无人获胜时，显示一个平局的消息。
 
-### 项目启动
+#### 项目启动
 
 `npm start`
 
-### 官网示例地址
+#### 官网示例地址
 
 [React 官网 DEMO 示例地址](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)
