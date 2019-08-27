@@ -62,10 +62,12 @@ class Game extends React.Component {
     if (this.state.orderDesc) {
       history.map((step, move) => {
         newList.push({ step, move })
+        return step
       })
     } else {
       history.map((step, move) => {
         newList.unshift({ step, move })
+        return step
       })
     }
     const moves = newList.map((item, index) => {
