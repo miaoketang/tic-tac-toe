@@ -43,22 +43,20 @@ class Game extends React.Component {
     })
   }
   handleOrder() {
-    // const history = this.state.history.slice().reverse()
     this.setState({
-      // history: history,
       orderDesc: !this.state.orderDesc
     })
   }
   render() {
     const orderDesc = this.state.orderDesc ? '升序' : '降序'
     let history = this.state.history.slice()
-
-    // if (!this.state.orderDesc) {
-    //   history = history.reverse()
-    // }
     const current = history[this.state.stepNumber]
-    const winner = calculateWinner(current.squares)
-
+    const winner =
+      calculateWinner(current.squares) &&
+      calculateWinner(current.squares).winner
+    const winnerList =
+      calculateWinner(current.squares) &&
+      calculateWinner(current.squares).winnerList
     const newList = []
 
     if (this.state.orderDesc) {
@@ -98,28 +96,6 @@ class Game extends React.Component {
         )
       }
     })
-    // const moves = history.map((step, move) => {
-    //   console.log(111, step, move)
-    //   const desc = move
-    //     ? 'Go to move #' + move + '   当前坐标为：(' + step.nowCoor + ')'
-    //     : 'Go to game start'
-
-    //   if (move === this.state.stepNumber) {
-    //     return (
-    //       <li key={move}>
-    //         <button style={{ color: 'red' }} onClick={() => this.jumpTo(move)}>
-    //           {desc}
-    //         </button>
-    //       </li>
-    //     )
-    //   } else {
-    //     return (
-    //       <li key={move}>
-    //         <button onClick={() => this.jumpTo(move)}>{desc}</button>
-    //       </li>
-    //     )
-    //   }
-    // })
     let status
     if (winner) {
       status = 'Winner: ' + winner
@@ -129,7 +105,11 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={current.squares} onClick={i => this.handleClick(i)} />
+          <Board
+            squares={current.squares}
+            winnerList={winnerList}
+            onClick={i => this.handleClick(i)}
+          />
         </div>
         <div className="game-info">
           <button onClick={() => this.handleOrder()}>{orderDesc}</button>
@@ -159,7 +139,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a]
+      return {
+        winner: squares[a],
+        winnerList: [a, b, c]
+      }
     }
   }
   return null
